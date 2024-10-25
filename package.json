@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "build": "your-build-command-here",
     "install-server": "npm install --prefix server",
     "install-sclient": "npm install --prefix client",
     "server": "npm run start --prefix server",
