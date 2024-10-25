@@ -1,0 +1,40 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.17.0' # You can adjust the Node.js version as needed
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ GauravDockerExp }}
+          password: ${{ HimanshiDocker }}
+
+      - name: Build Docker image
+        run: docker build -t ${{ GauravDockerExp }}/Nasa-Mission:latest .
+
+      - name: Push Docker image
+        run: docker push ${{ GauravDockerExp }}/Nasa-Mission:latest
